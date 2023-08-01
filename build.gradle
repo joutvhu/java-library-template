@@ -5,11 +5,12 @@ plugins {
     id 'signing'
     id 'java-library'
     id 'maven-publish'
+    id 'org.springframework.boot' version '3.0.0'
     id 'io.spring.dependency-management' version '1.1.0'
 }
 
 group = 'com.github.joutvhu'
-version = '2.7.8'
+version = '1.0.0'
 
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
@@ -29,16 +30,14 @@ repositories {
 
 ext {
     versions = [
-         // 'spring-boot.version'           : '2.7.0'
+         'spring-boot.version'           : '3.0.0'
     ]
     managedVersions = [
-         // 'org.springframework.data:spring-data-commons': 'spring-boot.version',
     ]
     otherVersions = [
-         // 'org.springframework.boot:spring-boot-dependencies': 'spring-boot.version'
+         'org.springframework.boot:spring-boot-dependencies': 'spring-boot.version'
     ]
     optionalDependencies = [
-         // 'org.hibernate:hibernate-core'
     ]
 }
 
@@ -68,7 +67,7 @@ jar {
     manifest {
         attributes 'Built-By': 'joutvhu (Giao Ho)'
         attributes 'Build-Date': java.time.Instant.now().toString()
-        attributes 'Bundle-Name': ''
+        attributes 'Bundle-Name': 'Java Library Template'
         attributes 'Bundle-Vendor': project.group
         attributes 'Bundle-SymbolicName': project.name
         attributes 'Bundle-Version': project.version
@@ -83,9 +82,9 @@ jar {
     }
 }
 
-//bootJar {
-//    enabled = false
-//}
+bootJar {
+    enabled = false
+}
 
 task fatJar(type: Jar) {
     manifest.from jar.manifest
@@ -123,7 +122,7 @@ publishing {
 
             pom {
                 name = project.name
-                description = ''
+                description = 'Template for java library using gradle'
                 url = 'https://github.com/joutvhu/java-library-template'
                 licenses {
                     license {
