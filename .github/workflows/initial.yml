@@ -77,7 +77,7 @@ jobs:
       - name: Rename by new info
         shell: bash
         run: |
-          gihub_folder=".github/"
+          dot_gihub=".github/"
           is_spring="${{ steps.repo_info.outputs.spring }}"
 
           original_name="java-library-template"
@@ -94,7 +94,7 @@ jobs:
 
           for filename in $(git ls-files)
           do
-            if [ -n "${gihub_folder%%w*}" ]
+            if [[ $filename != $dot_gihub* ]]
             then
               sed -i "s/$original_name/$new_name/g" $filename
               sed -i "s/$original_display/$new_display/g" $filename
