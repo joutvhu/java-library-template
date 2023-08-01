@@ -4,15 +4,35 @@ on:
   push:
 
 jobs:
-  rename:
+  init:
     runs-on: ubuntu-latest
     if: ${{ github.repository != 'joutvhu/java-library-template' }}
     permissions:
+      issues: write
       contents: write
     steps:
       - uses: actions/checkout@v3
 
-      - uses: actions/github-script@v4
+      - uses: actions/github-script@v6
+        with:
+          script: |
+            github.rest.issues.createLabel({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              name: 'feature',
+              color: '1D76DB',
+              description: 'Request some feature'
+            });
+
+            github.rest.issues.createLabel({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              name: 'dependency',
+              color: '006B75',
+              description: 'Bump version for dependencies'
+            });
+
+      - uses: actions/github-script@v6
         id: get_info
         with:
           script: |
