@@ -39,6 +39,15 @@ jobs:
           contents: ${{ secrets.GRADLE_SECRET_PROPERTIES }}
           write_mode: overwrite
 
+      - uses: actions/cache@v3
+        with:
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
+          restore-keys: |
+            ${{ runner.os }}-gradle-
+
       - name: Make gradlew executable
         run: chmod +x ./gradlew
 

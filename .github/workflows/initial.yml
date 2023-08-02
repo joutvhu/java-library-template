@@ -56,7 +56,6 @@ jobs:
               name: context.repo.repo
             };
             const result = await github.graphql(query, variables);
-            console.log(result);
             result.repository.spring = result.repository.name.startsWith('spring-');
             result.repository.display = result.repository.name
               .split('-').map(v => v[0].toUpperCase() + v.substr(1)).join(' ');
@@ -77,7 +76,7 @@ jobs:
       - name: Rename by new info
         shell: bash
         run: |
-          dot_gihub=".github/"
+          workflows=".github/workflows/"
           is_spring="${{ steps.repo_info.outputs.spring }}"
 
           original_name="java-library-template"
@@ -94,7 +93,7 @@ jobs:
 
           for filename in $(git ls-files)
           do
-            if [[ $filename != $dot_gihub* ]]
+            if [[ $filename != $workflows* ]]
             then
               sed -i "s/$original_name/$new_name/g" $filename
               sed -i "s/$original_display/$new_display/g" $filename
