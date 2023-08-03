@@ -32,6 +32,14 @@ jobs:
               description: 'Bump version for dependencies'
             });
 
+            github.rest.issues.createLabel({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              name: 'support',
+              color: 'C80F6D',
+              description: 'Request for support'
+            });
+
       - uses: actions/github-script@v6
         id: get_info
         with:
