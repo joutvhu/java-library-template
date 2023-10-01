@@ -5,12 +5,13 @@ plugins {
     id 'signing'
     id 'java-library'
     id 'maven-publish'
-    id 'org.springframework.boot' version '3.1.2'
+    id 'org.springframework.boot' version '3.1.0'
     id 'io.spring.dependency-management' version '1.1.2'
 }
 
 group = 'com.github.joutvhu'
 version = '1.0.0'
+description = 'Template for java library using gradle'
 
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
@@ -122,7 +123,7 @@ publishing {
 
             pom {
                 name = project.name
-                description = 'Template for java library using gradle'
+                description = description
                 url = 'https://github.com/joutvhu/java-library-template'
                 licenses {
                     license {
