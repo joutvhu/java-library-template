@@ -95,7 +95,7 @@ jobs:
 
           new_name="${{ steps.repo_info.outputs.name }}"
           new_display="${{ steps.repo_info.outputs.display }}"
-          new_description="${{ steps.repo_info.outputs.description }}"
+          new_description="${{ steps.repo_info.outputs.description || '' }}"
           new_username="${{ steps.repo_info.outputs.username }}"
           new_fullname="${{ steps.repo_info.outputs.fullname }}"
 
