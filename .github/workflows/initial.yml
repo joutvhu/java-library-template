@@ -113,7 +113,7 @@ jobs:
 
           if [ $is_spring = "false" ]
           then
-            sed -i '8d;34d;39d;86d;87d;88d;89d' build.gradle
+            sed -i '8d;37d;42d;89d;90d;91d;92d' build.gradle
           fi
 
       - name: Remove initial action
