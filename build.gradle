@@ -1,3 +1,5 @@
+import java.time.Instant
+
 plugins {
     id 'java'
     id 'idea'
@@ -24,12 +26,6 @@ configurations {
 repositories {
     mavenLocal()
     mavenCentral()
-}
-
-java {
-    toolchain {
-        languageVersion = JavaLanguageVersion.of(21)
-    }
 }
 
 ext {
@@ -70,7 +66,7 @@ jar {
     enabled = true
     manifest {
         attributes 'Built-By': 'joutvhu (Giao Ho)'
-        attributes 'Build-Date': java.time.Instant.now().toString()
+        attributes 'Build-Date': Instant.now().toString()
         attributes 'Bundle-Name': 'Java Library Template'
         attributes 'Bundle-Vendor': project.group
         attributes 'Bundle-SymbolicName': project.name
@@ -90,21 +86,21 @@ bootJar {
     enabled = false
 }
 
-tasks.withType(JavaCompile) {
-    options.release.set(8)
-}
-
-task fatJar(type: Jar) {
+tasks.register('fatJar', Jar) {
     manifest.from jar.manifest
     with jar
 }
 
-task sourcesJar(type: Jar, dependsOn: classes) {
+tasks.register('sourcesJar', Jar) {
+    dependsOn classes
+    manifest.from jar.manifest
     archiveClassifier = 'sources'
     from sourceSets.main.allSource
 }
 
-task javadocJar(type: Jar, dependsOn: javadoc) {
+tasks.register('javadocJar', Jar) {
+    dependsOn javadoc
+    manifest.from jar.manifest
     archiveClassifier = 'javadoc'
     from javadoc.destinationDir
 }
