@@ -13,9 +13,6 @@ group = 'com.github.joutvhu'
 version = '1.0.0'
 description = 'Template for java library using gradle'
 
-sourceCompatibility = 1.8
-targetCompatibility = 1.8
-
 def snapshotVersion = version.endsWith('-SNAPSHOT') || version.endsWith('.SNAPSHOT')
 
 configurations {
@@ -29,9 +26,15 @@ repositories {
     mavenCentral()
 }
 
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(21)
+    }
+}
+
 ext {
     versions = [
-         'spring-boot.version'           : '3.0.0'
+         'spring-boot.version'           : '3.4.4'
     ]
     managedVersions = [
     ]
@@ -85,6 +88,10 @@ jar {
 
 bootJar {
     enabled = false
+}
+
+tasks.withType(JavaCompile) {
+    options.release.set(8)
 }
 
 task fatJar(type: Jar) {
@@ -200,8 +207,8 @@ publishing {
                 url = 'https://oss.sonatype.org/service/local/staging/deploy/maven2'
             }
             credentials {
-                username = project.ossrhUsername
-                password = project.ossrhPassword
+                username = project.ossrhToken
+                password = project.ossrhTokenPassword
             }
         }
         maven {
